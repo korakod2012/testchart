@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">testchart</string>
+    <string name="plot_weight">Plot weight</string>
 </resources>
