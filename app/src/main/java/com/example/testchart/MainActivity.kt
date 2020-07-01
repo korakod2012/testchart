@@ -3,6 +3,8 @@ package com.example.testchart
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.YAxis.AxisDependency
@@ -17,15 +19,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val btnAddWeight = findViewById<Button>(R.id.btn_PlotWeight)
         setupChart()
+        val btnAddWeight = findViewById<Button>(R.id.btn_PlotWeight)
+        val currentWeight = findViewById<EditText>(R.id.edt_CurrentWeight)
 
         btnAddWeight.setOnClickListener {
-            addEntry()
+            addEntry(currentWeight.text.toString().toDouble())
+
+
         }
     }
 
-    private fun addEntry(){
+    private fun addEntry(currentWeight: Double){
 
         //get line data from old
         val data: LineData? = lineChart.data
@@ -33,12 +38,22 @@ class MainActivity : AppCompatActivity() {
         if ( data != null){
             var set = data.getDataSetByIndex(0)
 
-            data.addEntry(
+/*            data.addEntry(
                 Entry(
                     set.entryCount.toFloat(),
                     (Math.random() * 40).toFloat() + 30f
                 ), 0
+            )*/
+
+            data.addEntry(
+                Entry(
+                    set.entryCount.toFloat(),
+                    currentWeight.toFloat()
+                ), 0
             )
+
+
+
             data.notifyDataChanged()
 
             // let the chart know it's data has changed
@@ -68,3 +83,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+
